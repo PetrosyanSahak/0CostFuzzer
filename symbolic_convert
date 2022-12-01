@@ -1,9 +1,7 @@
 #include<iostream>
 #include<typeinfo>
-#include<random>
+#include <random>
 #include<time.h>
-
-
 template <typename T>
 class Symbolic {
     public:
@@ -16,7 +14,7 @@ class Symbolic {
         operator T (void) const {
             return value;
         }   
-        T value = rand() % 10; 
+        T value = rand() % 100; 
 };
 using symbolic_char = Symbolic<char>;
 using symbolic_short = Symbolic<short>;
@@ -32,13 +30,12 @@ using symbolic_int32_t = Symbolic<int32_t>;
 using symbolic_uint32_t = Symbolic<uint32_t>;
 using symbolic_int64_t = Symbolic<int64_t>;
 using symbolic_uint64_t = Symbolic<uint64_t>;
-int main() {
-
-    srand(time(NULL));
-    symbolic_int x;
-    std::cout << x.value << std::endl;
-    std::cout << x << std::endl;
+//int main() {
+//
+//        srand(time(NULL));
+//    symbolic_int x;
+//    std::cout << x.value << std::endl;
+//    std::cout << x << std::endl;
 //    std::cout <<typeid(x.value).name() << std::endl;
-    return 0;
-}
-
+//    return 0;
+//}
