@@ -1,4 +1,4 @@
-#include"template.h"
+#include"symbolic_convert.h"
 
 int gcd(int a, int b) {
     int r = a % b;
