@@ -6,16 +6,90 @@ template <typename T>
 class Symbolic {
     public:
         Symbolic(void) {
-            //srand(time(NULL));
+            srand(time(NULL));
             T value = 5;
-            std::cout << "in the constructor" << std::endl;
         }   
 
         operator T (void) const {
             return value;
-        }   
+        } 
+    
         T value = rand() % 100; 
 };
+
+template <typename T>
+class Symbolic {
+    public:
+        Symbolic(void) {
+            T *val_ptr = &value;
+  //          SymbolizeData(val_ptr, &(val_ptr[1]));
+        }
+        operator T (void) const {
+            return value;
+        }
+        T value;
+};
+
+
+
+template <typename T>
+class Symbolic {
+    public:
+        Symbolic(void) {
+            T *val_ptr = &value;
+            std::cout << " in the symbolic constructor " ;
+  //          SymbolizeData(val_ptr, &(val_ptr[1]));
+        }
+        operator T (void) const {
+            return value;
+        }
+        T value;
+};
+
+
+
+template <typename T>
+class SymbolicLinearContainer {
+    public:
+        SymbolicLinearContainer(size_t len) : value(len) {
+            if (!value.empty()) {
+               // SymbolizeData(&(value.front()), &(value.back()));
+            }
+        }
+
+        SymbolicLinearContainer() {
+            //std::cout << "in the linearcontainer constructor " ;
+            //std::cout << value << std::endl;
+            //value.reserve(32);
+            //    value.resize(SizeInRange(0, 32));
+            std::string a = "";
+            for(int i = 0; i < 10; ++i)
+                a += "abcdef01234567890"[rand() % 16];
+            value = a;
+            //std::cout << value << std::endl;
+        }
+
+        SymbolicLinearContainer(int size, std::string allowed) {
+            //std::cout << "in the linearcontainer constructor " ;
+            //std::cout << value << std::endl;
+            //value.reserve(32);
+            //    value.resize(SizeInRange(0, 32));
+            std::string a = "";
+            for(int i = 0; i < num; ++i)
+                a += allowed[rand() % 16];
+            value = a;
+            //std::cout << value << std::endl;
+        }
+    
+    operator T (void) const {
+        return value;
+    }
+    T value ;
+};
+template <>
+class Symbolic<std::string> : public SymbolicLinearContainer<std::string> {};
+
+
 using symbolic_char = Symbolic<char>;
 using symbolic_short = Symbolic<short>;
 using symbolic_int = Symbolic<int>;
@@ -30,12 +104,5 @@ using symbolic_int32_t = Symbolic<int32_t>;
 using symbolic_uint32_t = Symbolic<uint32_t>;
 using symbolic_int64_t = Symbolic<int64_t>;
 using symbolic_uint64_t = Symbolic<uint64_t>;
-//int main() {
-//
-//        srand(time(NULL));
-//    symbolic_int x;
-//    std::cout << x.value << std::endl;
-//    std::cout << x << std::endl;
-//    std::cout <<typeid(x.value).name() << std::endl;
-//    return 0;
-//}
+
+using symolic_str = Symbolic<std::string>;
