@@ -105,4 +105,4 @@ using symbolic_uint32_t = Symbolic<uint32_t>;
 using symbolic_int64_t = Symbolic<int64_t>;
 using symbolic_uint64_t = Symbolic<uint64_t>;
 
-using symolic_str = Symbolic<std::string>;
+using symbolic_str = Symbolic<std::string>;
