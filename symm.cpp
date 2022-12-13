@@ -1,6 +1,26 @@
-#include<iostream>
+using symbolic_char = Symbolic<char>;
+using symbolic_short = Symbolic<short>;
+using symbolic_int = Symbolic<int>;
+using symbolic_unsigned = Symbolic<unsigned>;
+using symbolic_long = Symbolic<long>;
 
-uint8_t readbytes() { return (uint8_t)196;}
+using symbolic_int8_t = Symbolic<int8_t>;
+using symbolic_uint8_t = Symbolic<uint8_t>;
+using symbolic_int16_t = Symbolic<int16_t>;
+using symbolic_uint16_t = Symbolic<uint16_t>;
+using symbolic_int32_t = Symbolic<int32_t>;
+using symbolic_uint32_t = Symbolic<uint32_t>;
+using symbolic_int64_t = Symbolic<int64_t>;
+using symbolic_uint64_t = Symbolic<uint64_t>;
+
+using symbolic_str = Symbolic<std::string>;
+
+
+
+
+uint8_t readbytes() { 
+	return (uint8_t)196; //read from llvm
+}
 
 void symbolize(void *begin, void *end) {
     uintptr_t begin_addr = (uintptr_t) begin;
@@ -64,52 +84,6 @@ class Symbolic<std::string> : public SymbolicLinearContainer<std::string> {
 };
 
 std::ostream &operator<<(std::ostream &stream, const Symbolic<std::string>& obj) {
-        
     return stream << obj.value;
-    }
-
-using symbolic_char = Symbolic<char>;
-using symbolic_short = Symbolic<short>;
-using symbolic_int = Symbolic<int>;
-using symbolic_unsigned = Symbolic<unsigned>;
-using symbolic_long = Symbolic<long>;
-
-using symbolic_int8_t = Symbolic<int8_t>;
-using symbolic_uint8_t = Symbolic<uint8_t>;
-using symbolic_int16_t = Symbolic<int16_t>;
-using symbolic_uint16_t = Symbolic<uint16_t>;
-using symbolic_int32_t = Symbolic<int32_t>;
-using symbolic_uint32_t = Symbolic<uint32_t>;
-using symbolic_int64_t = Symbolic<int64_t>;
-using symbolic_uint64_t = Symbolic<uint64_t>;
-
-using symbolic_str = Symbolic<std::string>;
-
-int main() {
-    srand(time(NULL));
-    
-    symbolic_int gg;
-    std::cout << "gg: " << gg << '\n';
-    symbolic_int aa;
-    ++aa;
-    aa++;
-    std::cout <<"aa: " << aa << '\n';
-    std::cout << std::boolalpha;
-	std::cout << "(gg > aa): " << (gg > aa) << '\n';
-	std::cout << "(gg >= aa): " << (gg >= aa) << '\n';
-	std::cout << "(gg < aa): " << (gg < aa) << '\n';
-	std::cout << "(gg <= aa): " << (gg <= aa) << '\n';
-	std::cout << "(gg == aa): " << (gg == aa) << '\n';
-	std::cout << "(gg != aa): " << (gg != aa) << '\n';
-    size_t abv = 6;
-    symbolic_str symstr(abv);
-    symbolic_str anoth;
-    std::string a = symstr;
-    std::string b = anoth;
-    std::cout << a << '\n';
-    std::cout << b << '\n';
-    std::cout << symstr+anoth;
-    std::cout << "this is overloaded" << symstr;
-    return 0;
-
 }
+
