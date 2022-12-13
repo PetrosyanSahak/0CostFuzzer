@@ -1,3 +1,4 @@
+#include<iostream>
 #include"symbolic_convert.h"
 
 int gcd(int a, int b) {
@@ -11,7 +12,6 @@ int gcd(int a, int b) {
 }
 
 int main() {
-    srand(time(NULL));
     symbolic_int x, y;
     std::cout << "x is " << x << std::endl;
     std::cout << "y is " << y << std::endl;
