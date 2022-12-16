@@ -1,19 +1,4 @@
-using symbolic_char = Symbolic<char>;
-using symbolic_short = Symbolic<short>;
-using symbolic_int = Symbolic<int>;
-using symbolic_unsigned = Symbolic<unsigned>;
-using symbolic_long = Symbolic<long>;
 
-using symbolic_int8_t = Symbolic<int8_t>;
-using symbolic_uint8_t = Symbolic<uint8_t>;
-using symbolic_int16_t = Symbolic<int16_t>;
-using symbolic_uint16_t = Symbolic<uint16_t>;
-using symbolic_int32_t = Symbolic<int32_t>;
-using symbolic_uint32_t = Symbolic<uint32_t>;
-using symbolic_int64_t = Symbolic<int64_t>;
-using symbolic_uint64_t = Symbolic<uint64_t>;
-
-using symbolic_str = Symbolic<std::string>;
 
 
 
@@ -87,3 +72,19 @@ std::ostream &operator<<(std::ostream &stream, const Symbolic<std::string>& obj)
     return stream << obj.value;
 }
 
+using symbolic_char = Symbolic<char>;
+using symbolic_short = Symbolic<short>;
+using symbolic_int = Symbolic<int>;
+using symbolic_unsigned = Symbolic<unsigned>;
+using symbolic_long = Symbolic<long>;
+
+using symbolic_int8_t = Symbolic<int8_t>;
+using symbolic_uint8_t = Symbolic<uint8_t>;
+using symbolic_int16_t = Symbolic<int16_t>;
+using symbolic_uint16_t = Symbolic<uint16_t>;
+using symbolic_int32_t = Symbolic<int32_t>;
+using symbolic_uint32_t = Symbolic<uint32_t>;
+using symbolic_int64_t = Symbolic<int64_t>;
+using symbolic_uint64_t = Symbolic<uint64_t>;
+
+using symbolic_str = Symbolic<std::string>;
