@@ -49,49 +49,25 @@ class Symbolic {
 	    return this->value + obj.value;
 	}
 
-//	int operator+(int obj) {
-//	    return this->value + obj;
-//	}
-
 	T operator-(Symbolic const &obj) {
 	    return this->value - obj.value;
 	}
-
-//	int operator-(int obj) {
-//	    return this->value - obj;
-//	}
 
 	T operator*(Symbolic const &obj) {
 	    return this->value * obj.value;
 	}
 
-//	int operator*(int obj) {
-//	    return this->value * obj;
-//	}
-
 	T operator/(Symbolic const &obj) {
 	    return this->value / obj.value;
 	}
-
-//	int operator/(int obj) {
-//	    return this->value / obj;
-//	}
 
 	T operator^(Symbolic const &obj) {
 	    return this->value ^ obj.value;
 	}
 
-//	int operator^(int obj) {
-//	    return this->value ^ obj;
-//	}
-
 	T operator&(Symbolic const &obj) {
 	    return this->value & obj.value;
 	}
-
-//	int operator&(int obj) {
-//	    return this->value & obj;
-//	}
 
 	T operator+=(Symbolic const &obj) {
 	    this->value += obj.value;
@@ -176,50 +152,26 @@ class Symbolic {
 	bool operator==(Symbolic const &obj) {
 	    return this->value == obj.value;
 	}
-
-//	bool operator==(int obj) {
-//	    return this->value == obj;
-//	}
         
 	bool operator!=(Symbolic const &obj) {
 	    return this->value != obj.value;
 	}
-
-//	bool operator!=(int obj) {
-//	    return this->value != obj;
-//	}
         
 	bool operator>(Symbolic const &obj) {
 	    return this->value > obj.value;
 	}
-
-//	bool operator>(int obj) {
-//	    return this->value > obj;
-//	}
         
 	bool operator>=(Symbolic const &obj) {
 	    return this->value >= obj.value;
 	}
-
-//	bool operator>=(int obj) {
-//	    return this->value >= obj;
-//	}
         
 	bool operator<(Symbolic const &obj) {
 	    return this->value < obj.value;
 	}
-
-//	bool operator<(int obj) {
-//	    return this->value < obj;
-//	}
         
 	bool operator<=(Symbolic const &obj) {
 	    return this->value <= obj.value;
 	}
-
-//	bool operator<=(int obj) {
-//	    return this->value <= obj;
-//	}
         
 };
 
