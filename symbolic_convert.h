@@ -1,4 +1,5 @@
-uint8_t readbytes() { return (uint8_t) 19; } //read byte from LLVM
+#include<iostream>
+uint8_t readbytes() { return (uint8_t) rand(); } //read byte from LLVM
 
 void symbolize(void *begin, void *end) {
     uintptr_t begin_addr = (uintptr_t) begin;
@@ -20,11 +21,16 @@ class Symbolic {
 	    T *val_ptr = &value;
             symbolize(val_ptr, &(val_ptr[1]));
         } 
-
+	explicit Symbolic(T new_val) {
+		value = new_val;
+	}
+	operator T (void) const {return value;}
         T value; 
 
-        operator T (void) const { return value; }
-
+ //       operator T (void) const { return value; }
+        friend std::ostream &operator<<(std::ostream &stream, const Symbolic<T> &obj) {
+		return stream << obj.value;
+	}
         //overloading unary operators
         T operator++() {return ++value;}  
         T operator++(int) {return ++value;} 
@@ -43,177 +49,177 @@ class Symbolic {
 	    return this->value + obj.value;
 	}
 
-	int operator+(int obj) {
-	    return this->value + obj;
-	}
+//	int operator+(int obj) {
+//	    return this->value + obj;
+//	}
 
 	T operator-(Symbolic const &obj) {
 	    return this->value - obj.value;
 	}
 
-	int operator-(int obj) {
-	    return this->value - obj;
-	}
+//	int operator-(int obj) {
+//	    return this->value - obj;
+//	}
 
 	T operator*(Symbolic const &obj) {
 	    return this->value * obj.value;
 	}
 
-	int operator*(int obj) {
-	    return this->value * obj;
-	}
+//	int operator*(int obj) {
+//	    return this->value * obj;
+//	}
 
 	T operator/(Symbolic const &obj) {
 	    return this->value / obj.value;
 	}
 
-	int operator/(int obj) {
-	    return this->value / obj;
-	}
+//	int operator/(int obj) {
+//	    return this->value / obj;
+//	}
 
 	T operator^(Symbolic const &obj) {
 	    return this->value ^ obj.value;
 	}
 
-	int operator^(int obj) {
-	    return this->value ^ obj;
-	}
+//	int operator^(int obj) {
+//	    return this->value ^ obj;
+//	}
 
 	T operator&(Symbolic const &obj) {
 	    return this->value & obj.value;
 	}
 
-	int operator&(int obj) {
-	    return this->value & obj;
-	}
+//	int operator&(int obj) {
+//	    return this->value & obj;
+//	}
 
 	T operator+=(Symbolic const &obj) {
 	    this->value += obj.value;
             return this->value;
 	}
 
-	int operator+=(int obj) {
-	    this->value += obj;
-            return this->value;
-	}
+//	int operator+=(int obj) {
+//	    this->value += obj;
+ //           return this->value;
+//	}
 
 	T operator-=(Symbolic const &obj) {
 	    this->value -= obj.value;
             return this->value;
 	}
 
-	int operator-=(int obj) {
-	    this->value -= obj;
-            return this->value;
-	}
+//	int operator-=(int obj) {
+//	    this->value -= obj;
+ //           return this->value;
+//	}
 
 	T operator*=(Symbolic const &obj) {
 	    this->value *= obj.value;
             return this->value;
 	}
 
-	int operator*=(int obj) {
-	    this->value *= obj;
-            return this->value;
-	}
+//	int operator*=(int obj) {
+//	    this->value *= obj;
+ //           return this->value;
+//	}
 
 	T operator/=(Symbolic const &obj) {
 	    this->value /= obj.value;
             return this->value;
 	}
 
-	int operator/=(int obj) {
-	    this->value /= obj;
-            return this->value;
-	}
+//	int operator/=(int obj) {
+//	    this->value /= obj;
+ //           return this->value;
+//	}
 
 	T operator%=(Symbolic const &obj) {
 	    this->value %= obj.value;
             return this->value;
 	}
 
-	int operator%=(int obj) {
-	    this->value %= obj;
-            return this->value;
-	}
+//	int operator%=(int obj) {
+//	    this->value %= obj;
+ //           return this->value;
+//	}
 
 	T operator^=(Symbolic const &obj) {
 	    this->value ^= obj.value;
             return this->value;
 	}
 
-	int operator^=(int obj) {
-	    this->value ^= obj;
-            return this->value;
-	}
+//	int operator^=(int obj) {
+//	    this->value ^= obj;
+ //           return this->value;
+//	}
 
 	T operator&=(Symbolic const &obj) {
 	    this->value &= obj.value;
             return this->value;
 	}
 
-	int operator&=(int obj) {
-	    this->value &= obj;
-            return this->value;
-	}
+//	int operator&=(int obj) {
+//	    this->value &= obj;
+ //           return this->value;
+//	}
 
 	T operator|=(Symbolic const &obj) {
 	    this->value |= obj.value;
             return this->value;
 	}
 
-	int operator|=(int obj) {
-	    this->value |= obj;
-            return this->value;
-	}
+//	int operator|=(int obj) {
+//	    this->value |= obj;
+ //           return this->value;
+//	}
 
 	bool operator==(Symbolic const &obj) {
 	    return this->value == obj.value;
 	}
 
-	bool operator==(int obj) {
-	    return this->value == obj;
-	}
+//	bool operator==(int obj) {
+//	    return this->value == obj;
+//	}
         
 	bool operator!=(Symbolic const &obj) {
 	    return this->value != obj.value;
 	}
 
-	bool operator!=(int obj) {
-	    return this->value != obj;
-	}
+//	bool operator!=(int obj) {
+//	    return this->value != obj;
+//	}
         
 	bool operator>(Symbolic const &obj) {
 	    return this->value > obj.value;
 	}
 
-	bool operator>(int obj) {
-	    return this->value > obj;
-	}
+//	bool operator>(int obj) {
+//	    return this->value > obj;
+//	}
         
 	bool operator>=(Symbolic const &obj) {
 	    return this->value >= obj.value;
 	}
 
-	bool operator>=(int obj) {
-	    return this->value >= obj;
-	}
+//	bool operator>=(int obj) {
+//	    return this->value >= obj;
+//	}
         
 	bool operator<(Symbolic const &obj) {
 	    return this->value < obj.value;
 	}
 
-	bool operator<(int obj) {
-	    return this->value < obj;
-	}
+//	bool operator<(int obj) {
+//	    return this->value < obj;
+//	}
         
 	bool operator<=(Symbolic const &obj) {
 	    return this->value <= obj.value;
 	}
 
-	bool operator<=(int obj) {
-	    return this->value <= obj;
-	}
+//	bool operator<=(int obj) {
+//	    return this->value <= obj;
+//	}
         
 };
 
@@ -251,6 +257,7 @@ std::ostream &operator<<(std::ostream &stream, const Symbolic<std::string>& obj)
     return stream << obj.value;
 }
 
+using symbolic_double = Symbolic<double>;
 using symbolic_char = Symbolic<char>;
 using symbolic_short = Symbolic<short>;
 using symbolic_int = Symbolic<int>;
