@@ -4,9 +4,9 @@ uint8_t globalbyteread[1000]; // fuzzeri inputy sra mej a pahvum
 
 uint8_t readbytes() {
  static int fuzzindex = 0;
- uint8_t retval = globalbyteread[fuzzindex];
- fuzzindex++;
- return retval;
+ if(fuzzindex > 999) exit(1);
+	
+ return globalbyteread[fuzzindex++];
 } //read byte from LLVM
 
 void symbolize(void *begin, void *end) {
