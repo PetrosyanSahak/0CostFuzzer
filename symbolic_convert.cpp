@@ -1,0 +1,279 @@
+#include<iostream>
+
+
+
+uint8_t globalbyteread[1000];
+
+        
+
+
+
+
+
+uint8_t readbytes() {
+ static int fuzzindex = 0;
+ uint8_t retval = globalbyteread[fuzzindex];
+ fuzzindex++;
+ return retval ;
+} //read byte from LLVM
+
+void symbolize(void *begin, void *end) {
+    uintptr_t begin_addr = (uintptr_t) begin;
+    uintptr_t end_addr = (uintptr_t) end;
+
+    if(begin_addr == end_addr) { return; }
+    else {
+        uint8_t *bytes = (uint8_t *) begin;
+        for(uintptr_t i = 0, max_i = (end_addr - begin_addr); i < max_i; ++i) {
+            bytes[i] = readbytes();
+        }
+    }
+}
+
+template <typename T>
+class Symbolic {
+    public:
+        Symbolic(void) {
+	    T *val_ptr = &value;
+            symbolize(val_ptr, &(val_ptr[1]));
+        } 
+	explicit Symbolic(T new_val) {
+		value = new_val;
+	}
+	operator T (void) const {return value;}
+        T value; 
+
+ //       operator T (void) const { return value; }
+        friend std::ostream &operator<<(std::ostream &stream, const Symbolic<T> &obj) {
+		return stream << obj.value;
+	}
+        //overloading unary operators
+        T operator++() {return ++value;}  
+        T operator++(int) {return ++value;} 
+        T operator--() {return --value;}  
+        T operator--(int) {return --value;} 
+        T operator+() {return value;}
+        T operator-() {return -value;}
+        T operator~() {return ~value;}
+        int operator!() {
+            if(value) return 0;
+            else return 1;
+        }
+
+        //overloading binary operators
+	T operator+(Symbolic const &obj) {
+	    return this->value + obj.value;
+	}
+
+	T operator-(Symbolic const &obj) {
+	    return this->value - obj.value;
+	}
+
+	T operator*(Symbolic const &obj) {
+	    return this->value * obj.value;
+	}
+
+	T operator/(Symbolic const &obj) {
+	    return this->value / obj.value;
+	}
+
+	T operator^(Symbolic const &obj) {
+	    return this->value ^ obj.value;
+	}
+
+	T operator&(Symbolic const &obj) {
+	    return this->value & obj.value;
+	}
+
+	T operator+=(Symbolic const &obj) {
+	    this->value += obj.value;
+            return this->value;
+	}
+
+//	int operator+=(int obj) {
+//	    this->value += obj;
+ //           return this->value;
+//	}
+
+	T operator-=(Symbolic const &obj) {
+	    this->value -= obj.value;
+            return this->value;
+	}
+
+//	int operator-=(int obj) {
+//	    this->value -= obj;
+ //           return this->value;
+//	}
+
+	T operator*=(Symbolic const &obj) {
+	    this->value *= obj.value;
+            return this->value;
+	}
+
+//	int operator*=(int obj) {
+//	    this->value *= obj;
+ //           return this->value;
+//	}
+
+	T operator/=(Symbolic const &obj) {
+	    this->value /= obj.value;
+            return this->value;
+	}
+
+//	int operator/=(int obj) {
+//	    this->value /= obj;
+ //           return this->value;
+//	}
+
+	T operator%=(Symbolic const &obj) {
+	    this->value %= obj.value;
+            return this->value;
+	}
+
+//	int operator%=(int obj) {
+//	    this->value %= obj;
+ //           return this->value;
+//	}
+
+	T operator^=(Symbolic const &obj) {
+	    this->value ^= obj.value;
+            return this->value;
+	}
+
+//	int operator^=(int obj) {
+//	    this->value ^= obj;
+ //           return this->value;
+//	}
+
+	T operator&=(Symbolic const &obj) {
+	    this->value &= obj.value;
+            return this->value;
+	}
+
+//	int operator&=(int obj) {
+//	    this->value &= obj;
+ //           return this->value;
+//	}
+
+	T operator|=(Symbolic const &obj) {
+	    this->value |= obj.value;
+            return this->value;
+	}
+
+//	int operator|=(int obj) {
+//	    this->value |= obj;
+ //           return this->value;
+//	}
+
+	bool operator==(Symbolic const &obj) {
+	    return this->value == obj.value;
+	}
+        
+	bool operator!=(Symbolic const &obj) {
+	    return this->value != obj.value;
+	}
+        
+	bool operator>(Symbolic const &obj) {
+	    return this->value > obj.value;
+	}
+        
+	bool operator>=(Symbolic const &obj) {
+	    return this->value >= obj.value;
+	}
+        
+	bool operator<(Symbolic const &obj) {
+	    return this->value < obj.value;
+	}
+        
+	bool operator<=(Symbolic const &obj) {
+	    return this->value <= obj.value;
+	}
+        
+};
+
+template <typename T>
+class SymbolicLinearContainer {
+    public:
+
+        SymbolicLinearContainer() {
+	    value.reserve(32);
+        }
+        
+//        SymbolicLinearContainer(size_t len) : value(len) {
+//            symbolize(&(value.front()), &(value.back()));
+//        }
+    
+        operator T (void) const {
+            return value;
+        }
+
+        T value ;
+};
+
+template <>
+class Symbolic<std::string> : public SymbolicLinearContainer<std::string> {
+    public:
+        Symbolic<std::string>() :  SymbolicLinearContainer<std::string>() {}
+      //Symbolic<std::string>(size_t size) :  SymbolicLinearContainer<std::string>(size) {}
+            
+        std::string operator + ( Symbolic<std::string> const &obj) {
+            return this->value + obj.value;
+        }
+};
+
+std::ostream &operator<<(std::ostream &stream, const Symbolic<std::string>& obj) {
+    return stream << obj.value;
+}
+
+using symbolic_double = Symbolic<double>;
+using symbolic_char = Symbolic<char>;
+using symbolic_short = Symbolic<short>;
+using symbolic_int = Symbolic<int>;
+using symbolic_unsigned = Symbolic<unsigned>;
+using symbolic_long = Symbolic<long>;
+using symbolic_int8_t = Symbolic<int8_t>;
+using symbolic_uint8_t = Symbolic<uint8_t>;
+using symbolic_int16_t = Symbolic<int16_t>;
+using symbolic_uint16_t = Symbolic<uint16_t>;
+using symbolic_int32_t = Symbolic<int32_t>;
+using symbolic_uint32_t = Symbolic<uint32_t>;
+using symbolic_int64_t = Symbolic<int64_t>;
+using symbolic_uint64_t = Symbolic<uint64_t>;
+using symbolic_str = Symbolic<std::string>;
+
+
+
+
+extern "C" int LLVMFuzzerTestOneInput(const uint8_t *Data, size_t Size) {
+    if(Size < 1000) return 1;
+    for(int i = 1; i < 1000; i++)
+        globalbyteread[i] = Data[i];
+
+
+    symbolic_int a, b;
+    std::cout << "symbolic a is : " << a << '\n';
+    std::cout << "symbolic b is : " << b << '\n';
+    std::cout << "symbolic a + b is : " << a + b << '\n';
+    symbolic_double d;
+    std::cout << "symbolic double d is : " << d << '\n';
+    std::cout << " d + b is : " << d + b << '\n';
+    std::cout << " d + a is : " << d + a << '\n';
+    int f = 7;
+    std::cout << "f is a standard integer: " << f << '\n';
+    std::cout << "f + symbolic a is : " << f +a << '\n';
+    std::cout << "assigning f to symbolic a + symbolic b: " << '\n';
+    f = a + b;
+    std::cout << "f now is : " << f ;
+    std::cout << "assigning f to symbolic a + symbolic d: " << '\n';
+    f = a + d;
+    std::cout << "f now is : " << f ;
+    
+    static int ab = 0;
+    ab++;
+    if(ab>100) exit(1);
+   
+
+
+   
+    return 0;
+}
