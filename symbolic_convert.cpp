@@ -1,20 +1,12 @@
 #include<iostream>
 
-
-
-uint8_t globalbyteread[1000];
-
-        
-
-
-
-
+uint8_t globalbyteread[1000]; // fuzzeri inputy sra mej a pahvum
 
 uint8_t readbytes() {
  static int fuzzindex = 0;
  uint8_t retval = globalbyteread[fuzzindex];
  fuzzindex++;
- return retval ;
+ return retval;
 } //read byte from LLVM
 
 void symbolize(void *begin, void *end) {
@@ -43,7 +35,6 @@ class Symbolic {
 	operator T (void) const {return value;}
         T value; 
 
- //       operator T (void) const { return value; }
         friend std::ostream &operator<<(std::ostream &stream, const Symbolic<T> &obj) {
 		return stream << obj.value;
 	}
@@ -90,80 +81,40 @@ class Symbolic {
             return this->value;
 	}
 
-//	int operator+=(int obj) {
-//	    this->value += obj;
- //           return this->value;
-//	}
-
 	T operator-=(Symbolic const &obj) {
 	    this->value -= obj.value;
             return this->value;
 	}
-
-//	int operator-=(int obj) {
-//	    this->value -= obj;
- //           return this->value;
-//	}
 
 	T operator*=(Symbolic const &obj) {
 	    this->value *= obj.value;
             return this->value;
 	}
 
-//	int operator*=(int obj) {
-//	    this->value *= obj;
- //           return this->value;
-//	}
-
 	T operator/=(Symbolic const &obj) {
 	    this->value /= obj.value;
             return this->value;
 	}
-
-//	int operator/=(int obj) {
-//	    this->value /= obj;
- //           return this->value;
-//	}
 
 	T operator%=(Symbolic const &obj) {
 	    this->value %= obj.value;
             return this->value;
 	}
 
-//	int operator%=(int obj) {
-//	    this->value %= obj;
- //           return this->value;
-//	}
-
 	T operator^=(Symbolic const &obj) {
 	    this->value ^= obj.value;
             return this->value;
 	}
-
-//	int operator^=(int obj) {
-//	    this->value ^= obj;
- //           return this->value;
-//	}
 
 	T operator&=(Symbolic const &obj) {
 	    this->value &= obj.value;
             return this->value;
 	}
 
-//	int operator&=(int obj) {
-//	    this->value &= obj;
- //           return this->value;
-//	}
-
 	T operator|=(Symbolic const &obj) {
 	    this->value |= obj.value;
             return this->value;
 	}
-
-//	int operator|=(int obj) {
-//	    this->value |= obj;
- //           return this->value;
-//	}
 
 	bool operator==(Symbolic const &obj) {
 	    return this->value == obj.value;
@@ -249,7 +200,7 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *Data, size_t Size) {
     for(int i = 1; i < 1000; i++)
         globalbyteread[i] = Data[i];
 
-
+    //stexic main funkcian piti liner
     symbolic_int a, b;
     std::cout << "symbolic a is : " << a << '\n';
     std::cout << "symbolic b is : " << b << '\n';
@@ -267,13 +218,11 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *Data, size_t Size) {
     std::cout << "assigning f to symbolic a + symbolic d: " << '\n';
     f = a + d;
     std::cout << "f now is : " << f ;
-    
+    // minchev stex
+	
     static int ab = 0;
     ab++;
     if(ab>100) exit(1);
-   
-
-
    
     return 0;
 }
