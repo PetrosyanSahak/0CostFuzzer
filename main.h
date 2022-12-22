@@ -1,4 +1,5 @@
 int man() {
+
     symbolic_int a, b;
     std::cout << "\n\n";
     std::cout << "symbolic a is : " << a << '\n';
@@ -20,8 +21,6 @@ int man() {
     std::cout << "\n\n";
     //symbolic_str bbb(32);
     //std::cout << bbb << '\n';
-    // minchev stex
-	
-   
+
     return 0;
 }
