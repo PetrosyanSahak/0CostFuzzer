@@ -18,8 +18,8 @@ int man() {
     f = a + d;
     std::cout << "f now is : " << f << '\n';
     std::cout << "\n\n";
-    symbolic_str bbb(32);
-    std::cout << bbb << '\n';
+    //symbolic_str bbb(32);
+    //std::cout << bbb << '\n';
     // minchev stex
 	
    
