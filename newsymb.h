@@ -1,4 +1,3 @@
-
 int fuzzindex;
 uint8_t globalbyteread[1000]; // fuzzeri inputy sra mej a pahvum
 
