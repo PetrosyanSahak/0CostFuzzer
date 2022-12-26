@@ -145,14 +145,16 @@ class SymbolicLinearContainer {
     public:
 
         SymbolicLinearContainer() {
-	    value.reserve(32);
+	        value.reserve(32);
+			value.resize(32);
             symbolize(&(value.front()), &(value.back()));
 
         }
         
         SymbolicLinearContainer(size_t len) {
-		value.reserve(len);
-            symbolize(&value, &(value[len]));
+			value.reserve(len);
+			value.resize(len);
+            symbolize(&(value.front()), &(value.back()));
         }
     
         operator T (void) const {
