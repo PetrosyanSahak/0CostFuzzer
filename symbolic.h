@@ -144,16 +144,15 @@ template <typename T>
 class SymbolicLinearContainer {
     public:
 
-        SymbolicLinearContainer() {
-	        value.reserve(32);
-			value.resize(32);
-            symbolize(&(value.front()), &(value.back()));
-
-        }
+        //SymbolicLinearContainer() {
+	//    value.reserve(32);
+	//    value.resize(32);
+        //    symbolize(&(value.front()), &(value.back()));
+        //}
         
-        SymbolicLinearContainer(size_t len) {
-			value.reserve(len);
-			value.resize(len);
+        SymbolicLinearContainer(size_t len = 32) {
+	    value.reserve(len);
+	    value.resize(len);
             symbolize(&(value.front()), &(value.back()));
         }
     
@@ -175,6 +174,14 @@ class Symbolic<std::string> : public SymbolicLinearContainer<std::string> {
         }
 };
 
+template <typename T>
+class Symbolic<std::vector<T>> : public SymbolicLinearContainer<std::vector<T>> {
+    public:
+        Symbolic<std::vector<T>>() : SymbolicLinearContainer<std::vector<T>>() {}
+        Symbolic<std::vector<T>>(size_t size) : SymbolicLinearContainer<std::vector<T>>(size) {}
+
+};
+
 std::ostream &operator<<(std::ostream &stream, const Symbolic<std::string>& obj) {
     return stream << obj.value;
 }
@@ -194,6 +201,7 @@ using symbolic_uint32_t = Symbolic<uint32_t>;
 using symbolic_int64_t = Symbolic<int64_t>;
 using symbolic_uint64_t = Symbolic<uint64_t>;
 using symbolic_str = Symbolic<std::string>;
+
 
 
 
